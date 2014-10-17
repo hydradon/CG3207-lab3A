@@ -26,7 +26,8 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -47,3 +48,18 @@ Temporary Items
 *.xreport
 *.html
 *.xmsgs
+*.projectmgr
+*.nlf
+*.vhd
+*.cmd_log
+*.lso
+*.ngc
+*.ngr
+*.prj
+*.stx
+*.syr
+*.xst
+*.xrpt
+*.xml
+*.vdbl
+*.vdbx
