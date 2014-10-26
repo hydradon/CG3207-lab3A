@@ -33,9 +33,32 @@ end RegFile;
 
 
 architecture arch_RegFile of RegFile is
+
+type reg_type is array (0 to 31) of std_logic_vector(31 downto 0);
+signal REG: reg_type := (x"000030CF", x"00000000", x"00000CCC", x"00000000",
+								 x"00000000", x"00000000", x"00000000", x"00000000",
+								 x"00000000", x"00000000", x"0000AAAA", x"00000000",
+								 x"00000000", x"00400C00", x"00000000", x"00000000",
+								 x"00000000", x"00000000", x"00000000", x"00000000",
+								 x"00000000", x"00000000", x"00000000", x"00000000",
+								 x"00000000", x"00F000A0", x"00000000", x"00000000",
+								 x"00000000", x"FFFFFFFF", x"00000000", x"00000000");
+
 begin
 
---<Implement register file here >
+-- Read data from REG
+ReadData1_Reg <= REG(conv_integer(ReadAddr1_Reg));
+ReadData2_Reg <= REG(conv_integer(ReadAddr2_Reg));
+
+-- Write data to REG
+process (CLK)
+begin
+	if rising_edge(CLK) then
+		if RegWrite = '1' then
+			REG(conv_integer(WriteAddr_Reg)) <= WriteData_Reg;
+		end if;
+	end if;
+end process;
 
 end arch_RegFile;
 

@@ -31,18 +31,20 @@ end PC;
 architecture arch_PC of PC is
 
 begin
-	process (CLK)
-	begin
+
+process (CLK)
+begin
 	--<implement PC here>
 
-		if (CLK'event and CLK = '1') then
-			if RESET = '1' then
-				PC_out <= x"00400000";
-			end if;
+	if (CLK'event and CLK = '1') then
+		if RESET = '1' or PC_in = x"004003FC" then
+			PC_out <= x"00400000";
 		else
-				PC_out <= PC_in + 4;
+			PC_out <= PC_in + 4;
 		end if;
+	end if;
+	
+end process;
 
-	end process;
 end arch_PC;
 
