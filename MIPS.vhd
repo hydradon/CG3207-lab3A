@@ -95,6 +95,14 @@ component RegFile is
 end component;
 
 ----------------------------------------------------------------
+-- SignExtend
+----------------------------------------------------------------
+component SignExtend is
+    Port ( Input : in  STD_LOGIC_VECTOR (15 downto 0);
+           Output : out  STD_LOGIC_VECTOR (31 downto 0));
+end component;
+
+----------------------------------------------------------------
 -- PC Signals
 ----------------------------------------------------------------
 	signal	PC_in 		:  STD_LOGIC_VECTOR (31 downto 0);
@@ -133,6 +141,12 @@ end component;
 	signal	WriteAddr_Reg	:  STD_LOGIC_VECTOR (4 downto 0); 
 	signal	WriteData_Reg 	:  STD_LOGIC_VECTOR (31 downto 0);
 
+----------------------------------------------------------------
+-- SignExtend Signals
+----------------------------------------------------------------
+ 	signal	Input 	:  STD_LOGIC_VECTOR (15 downto 0);
+	signal	Output 	:  STD_LOGIC_VECTOR (31 downto 0);
+	
 ----------------------------------------------------------------
 -- Other Signals
 ----------------------------------------------------------------
@@ -203,6 +217,14 @@ RegFile1			: RegFile port map
 						CLK 				=> CLK				
 						);
 
+----------------------------------------------------------------
+-- SignExtend port map
+----------------------------------------------------------------
+SignExtend1			: SignExtend port map
+						(
+						Input => Input,
+						Output => Output
+						);
 ----------------------------------------------------------------
 -- Processor logic
 ----------------------------------------------------------------
