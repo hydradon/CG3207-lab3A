@@ -106,7 +106,7 @@ end component;
 -- PC Signals
 ----------------------------------------------------------------
 	signal	PC_in 		:  STD_LOGIC_VECTOR (31 downto 0);
-	signal	PC_out 		:  STD_LOGIC_VECTOR (31 downto 0);
+	signal	PC_out 		:  STD_LOGIC_VECTOR (31 downto 0) := x"00400000";
 
 ----------------------------------------------------------------
 -- ALU Signals
@@ -230,8 +230,15 @@ SignExtender1			: SignExtender port map
 ----------------------------------------------------------------
 --<Rest of the logic goes here>
 
--- Input for PC
+-- Output to TOP
+Addr_Instr <= PC_out;
+Addr_Data <= ALU_out;
+Data_Out <= ReadData2_Reg;
 
+-- Input for PC
+PC_In <= PC_out(31 downto 28) & Instr(25 downto 0) & "00" when Jump = '1' else
+			PC_out + (SignEx_out(29 downto 0) & "00") when Branch = '1' and ALU_zero = '1' else
+			PC_out;
 
 -- Input for ALU
 ALU_InA <= ReadData1_Reg;
