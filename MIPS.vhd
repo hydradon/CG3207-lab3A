@@ -95,9 +95,9 @@ component RegFile is
 end component;
 
 ----------------------------------------------------------------
--- SignExtend
+-- SignExtender
 ----------------------------------------------------------------
-component SignExtend is
+component SignExtender is
     Port ( Input : in  STD_LOGIC_VECTOR (15 downto 0);
            Output : out  STD_LOGIC_VECTOR (31 downto 0));
 end component;
@@ -218,9 +218,9 @@ RegFile1			: RegFile port map
 						);
 
 ----------------------------------------------------------------
--- SignExtend port map
+-- SignExtender port map
 ----------------------------------------------------------------
-SignExtend1			: SignExtend port map
+SignExtender1			: SignExtender port map
 						(
 						Input => Input,
 						Output => Output
@@ -229,6 +229,7 @@ SignExtend1			: SignExtend port map
 -- Processor logic
 ----------------------------------------------------------------
 --<Rest of the logic goes here>
+
 
 end arch_MIPS;
 

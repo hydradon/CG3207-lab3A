@@ -124,6 +124,18 @@ begin
 			SignExtend <= '0';
 			RegWrite <= '0';
 			RegDst <= 'X';
+		when others =>
+			ALUOp <= "XX";
+			Branch <= '0';
+			Jump <= '0';
+			MemRead <= '0';
+			MemToReg <= 'X';
+			InstrtoReg <= '0';
+			MemWrite <= '0';
+			ALUSrc <= 'X';
+			SignExtend <= '0';
+			RegWrite <= '0';
+			RegDst <= 'X';
 	end case;
 end process;
 

@@ -29,17 +29,17 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity SignExtend is
+entity SignExtender is
     Port ( Input : in  STD_LOGIC_VECTOR (15 downto 0);
            Output : out  STD_LOGIC_VECTOR (31 downto 0));
-end SignExtend;
+end SignExtender;
 
 
-architecture SignExtend_arch of SignExtend is
+architecture SignExtender_arch of SignExtender is
 
 begin
 	Output(31 downto 16) <= (others => Input(15));
-	Output(16 downto 0) <= Input(15 downto 0);
+	Output(15 downto 0) <= Input(15 downto 0);
 
-end SignExtend_arch;
+end SignExtender_arch;
 
