@@ -34,11 +34,97 @@ entity ControlUnit is
 				RegDst		: out  STD_LOGIC);
 end ControlUnit;
 
+architecture arch_ControlUnit of ControlUnit is 
+begin
 
-architecture arch_ControlUnit of ControlUnit is  
-begin   
-
---<implement control unit here>
+process(opcode)
+begin 
+	case opcode is
+		when "000000" => -- R type
+			ALUOp <= "10";
+			Branch <= '0';
+			Jump <= '0';
+			MemRead <= '0';
+			MemToReg <= '0';
+			InstrtoReg <= '0';
+			MemWrite <= '0';
+			ALUSrc <= '0';
+			SignExtend <= 'X';
+			RegWrite <= '1';
+			RegDst <= '1';
+		when "100011" => -- LW
+			ALUOp <= "00";
+			Branch <= '0';
+			Jump <= '0';
+			MemRead <= '1';
+			MemToReg <= '1';
+			InstrtoReg <= '0';
+			MemWrite <= '0';
+			ALUSrc <= '1';
+			SignExtend <= '1';
+			RegWrite <= '1';
+			RegDst <= '0';
+		when "101011" => -- SW
+			ALUOp <= "00";
+			Branch <= '0';
+			Jump <= '0';
+			MemRead <= '0';
+			MemToReg <= 'X';
+			InstrtoReg <= '0';
+			MemWrite <= '1';
+			ALUSrc <= '1';
+			SignExtend <= '1';
+			RegWrite <= '0';
+			RegDst <= 'X';
+		when "001111" => -- LUI
+			ALUOp <= "11";
+			Branch <= '0';
+			Jump <= '0';
+			MemRead <= '0';
+			MemToReg <= '0';
+			InstrtoReg <= '1';
+			MemWrite <= '0';
+			ALUSrc <= '1';
+			SignExtend <= '0';
+			RegWrite <= '1';
+			RegDst <= '0';
+		when "001101" => -- ORI
+			ALUOp <= "11";
+			Branch <= '0';
+			Jump <= '0';
+			MemRead <= '0';
+			MemToReg <= '0';
+			InstrtoReg <= '0';
+			MemWrite <= '0';
+			ALUSrc <= '1';
+			SignExtend <= '0';
+			RegWrite <= '1';
+			RegDst <= '0';
+		when "000100" => -- BEQ
+			ALUOp <= "01";
+			Branch <= '1';
+			Jump <= '0';
+			MemRead <= '0';
+			MemToReg <= 'X';
+			InstrtoReg <= '0';
+			MemWrite <= '0';
+			ALUSrc <= '0';
+			SignExtend <= '1';
+			RegWrite <= '0';
+			RegDst <= 'X';
+		when "000010" => -- J
+			ALUOp <= "XX";
+			Branch <= '0';
+			Jump <= '1';
+			MemRead <= '0';
+			MemToReg <= 'X';
+			InstrtoReg <= '0';
+			MemWrite <= '0';
+			ALUSrc <= 'X';
+			SignExtend <= '0';
+			RegWrite <= '0';
+			RegDst <= 'X';
+	end case;
+end process;
 
 end arch_ControlUnit;
-
