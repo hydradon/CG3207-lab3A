@@ -144,8 +144,8 @@ end component;
 ----------------------------------------------------------------
 -- SignExtend Signals
 ----------------------------------------------------------------
- 	signal	Input 	:  STD_LOGIC_VECTOR (15 downto 0);
-	signal	Output 	:  STD_LOGIC_VECTOR (31 downto 0);
+ 	signal	SignEx_In 	:  STD_LOGIC_VECTOR (15 downto 0);
+	signal	SignEx_Out 	:  STD_LOGIC_VECTOR (31 downto 0);
 	
 ----------------------------------------------------------------
 -- Other Signals
@@ -222,14 +222,38 @@ RegFile1			: RegFile port map
 ----------------------------------------------------------------
 SignExtender1			: SignExtender port map
 						(
-						Input => Input,
-						Output => Output
+						Input => SignEx_In,
+						Output => SignEx_Out
 						);
 ----------------------------------------------------------------
 -- Processor logic
 ----------------------------------------------------------------
 --<Rest of the logic goes here>
 
+-- Input for PC
+
+
+-- Input for ALU
+ALU_InA <= ReadData1_Reg;
+ALU_InB <= ReadData2_Reg when ALUSrc = '0' else
+			  SignEx_Out when SignExtend = '1' else
+			  Instr(15 downto 0) & x"0000" when InstrtoReg = '1' else
+			  x"0000" & Instr(15 downto 0);
+ALU_Control <= ALUOp & Instr(5 downto 0);
+
+-- Input for ControlUnit
+opcode <= Instr(31 downto 26);
+
+-- Input for RegFile
+ReadAddr1_Reg <= Instr(25 downto 21);
+ReadAddr2_Reg <= Instr(20 downto 16);
+WriteAddr_Reg <= Instr(20 downto 16) when RegDst = '0' else
+					  Instr(15 downto 11);
+WriteData_Reg <= Data_in when MemtoReg = '1' else
+					  ALU_Out;
+
+-- Input for SignExtender
+SignEx_In <= Instr(15 downto 0);
 
 end arch_MIPS;
 
