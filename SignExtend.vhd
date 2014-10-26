@@ -34,6 +34,7 @@ entity SignExtend is
            Output : out  STD_LOGIC_VECTOR (31 downto 0));
 end SignExtend;
 
+
 architecture SignExtend_arch of SignExtend is
 
 begin

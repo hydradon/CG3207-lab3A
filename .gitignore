@@ -50,7 +50,6 @@ Temporary Items
 *.xmsgs
 *.projectmgr
 *.nlf
-*.vhd
 *.cmd_log
 *.lso
 *.ngc
