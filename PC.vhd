@@ -41,7 +41,7 @@ begin
 		if RESET = '1' or PC_in = x"004003FC" then
 			PC_out <= x"00400000";
 		else
-			PC_out <= PC_in + 4;
+			PC_out <= PC_in;
 		end if;
 	end if;
 	

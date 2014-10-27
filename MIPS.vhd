@@ -105,7 +105,7 @@ end component;
 ----------------------------------------------------------------
 -- PC Signals
 ----------------------------------------------------------------
-	signal	PC_in 		:  STD_LOGIC_VECTOR (31 downto 0);
+	signal	PC_in 		:  STD_LOGIC_VECTOR (31 downto 0) := x"00400000";
 	signal	PC_out 		:  STD_LOGIC_VECTOR (31 downto 0) := x"00400000";
 
 ----------------------------------------------------------------
@@ -151,7 +151,7 @@ end component;
 -- Other Signals
 ----------------------------------------------------------------
 	--<any other signals used goes here>
- 
+	signal PCPlus4 : STD_LOGIC_VECTOR (31 downto 0) := x"00400000";
 
 ----------------------------------------------------------------	
 ----------------------------------------------------------------
@@ -236,9 +236,10 @@ Addr_Data <= ALU_out;
 Data_Out <= ReadData2_Reg;
 
 -- Input for PC
-PC_In <= (PC_out(31 downto 28) & Instr(25 downto 0) & "00") when Jump = '1' else
-			PC_out + (SignEx_out(29 downto 0) & "00") when Branch = '1' and ALU_zero = '1' else
-			PC_out;
+PCPlus4 <= PC_out + 4;
+PC_In <= (PCPlus4(31 downto 28) & Instr(25 downto 0) & "00") when Jump = '1' else
+			PCPlus4 + (SignEx_out(29 downto 0) & "00") when Branch = '1' and ALU_zero = '1' else
+			PCPlus4;
 
 -- Input for ALU
 ALU_InA <= ReadData1_Reg;
