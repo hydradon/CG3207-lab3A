@@ -77,7 +77,7 @@ begin
 			RegWrite <= '0';
 			RegDst <= 'X';
 		when "001111" => -- LUI
-			ALUOp <= "11";
+			ALUOp <= "XX";
 			Branch <= '0';
 			Jump <= '0';
 			MemRead <= '0';

@@ -236,7 +236,7 @@ Addr_Data <= ALU_out;
 Data_Out <= ReadData2_Reg;
 
 -- Input for PC
-PC_In <= PC_out(31 downto 28) & Instr(25 downto 0) & "00" when Jump = '1' else
+PC_In <= (PC_out(31 downto 28) & Instr(25 downto 0) & "00") when Jump = '1' else
 			PC_out + (SignEx_out(29 downto 0) & "00") when Branch = '1' and ALU_zero = '1' else
 			PC_out;
 
@@ -244,8 +244,8 @@ PC_In <= PC_out(31 downto 28) & Instr(25 downto 0) & "00" when Jump = '1' else
 ALU_InA <= ReadData1_Reg;
 ALU_InB <= ReadData2_Reg when ALUSrc = '0' else
 			  SignEx_Out when SignExtend = '1' else
-			  x"0000" & Instr(15 downto 0);
-ALU_Control <= ALUOp & Instr(5 downto 0);
+			  (x"0000" & Instr(15 downto 0));
+ALU_Control <= (ALUOp & Instr(5 downto 0));
 
 -- Input for ControlUnit
 opcode <= Instr(31 downto 26);
@@ -256,7 +256,7 @@ ReadAddr2_Reg <= Instr(20 downto 16);
 WriteAddr_Reg <= Instr(20 downto 16) when RegDst = '0' else
 					  Instr(15 downto 11);
 WriteData_Reg <= Data_in when MemtoReg = '1' else
-					  Instr(15 downto 0) & x"0000" when InstrtoReg = '1' else
+					  (Instr(15 downto 0) & x"0000") when (MemtoReg = '0' and InstrtoReg = '1') else
 					  ALU_Out;
 
 -- Input for SignExtender
