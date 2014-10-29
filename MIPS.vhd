@@ -257,7 +257,6 @@ ReadAddr2_Reg <= Instr(20 downto 16);
 WriteAddr_Reg <= Instr(20 downto 16) when RegDst = '0' else
 					  Instr(15 downto 11);
 WriteData_Reg <= Data_in when MemtoReg = '1' else
-					  --(Instr(15 downto 0) & x"0000") when (MemtoReg = '0' and InstrtoReg = '1') else
 					  (Instr(15 downto 0) & x"0000") when InstrtoReg = '1' else
 					  ALU_Out;
 
