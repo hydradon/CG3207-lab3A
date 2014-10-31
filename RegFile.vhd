@@ -47,7 +47,7 @@ ReadData2_Reg <= REG(conv_integer(ReadAddr2_Reg));
 process (CLK)
 begin
 	if rising_edge(CLK) then
-		if RegWrite = '1' then
+		if RegWrite = '1' and (not WriteAddr_Reg = x"00000000") then
 			REG(conv_integer(WriteAddr_Reg)) <= WriteData_Reg;
 		end if;
 	end if;
